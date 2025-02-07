@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--background: #ffffff;
+	--foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
+}
+
+body {
+	color: var(--foreground);
+	background: var(--background);
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-image {
+	overflow: hidden;
+	/* font-family: 'Rubik'; */
+}
+
+.card-image img {
+	transition:
+		transform 0.25s ease-in-out,
+		background-color 0.25s ease-in-out,
+		color 0.25s ease-in-out;
+}
+
+.card-image .delete-image {
+	opacity: 0.5;
+}
+
+.card-image:hover img {
+	transform: scale(1.1);
+}
+
+.card-image:hover .image-code {
+	background-color: rgba(0, 0, 0, 0.35);
+}
+
+.card-image:hover .delete-image {
+	opacity: 1;
+}
+
+.delete-image:hover {
+	background-color: rgb(186, 0, 0);
+	color: white;
+}
