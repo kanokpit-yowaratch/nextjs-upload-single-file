@@ -90,11 +90,7 @@ const UploadForm = () => {
 
 		if (file.type.startsWith('image/')) {
 			return (
-				<img
-					src={URL.createObjectURL(file)}
-					alt="Preview"
-					className="w-20 h-20 object-cover rounded-lg"
-				/>
+				<img src={URL.createObjectURL(file)} alt="Preview" className="w-20 h-20 object-cover rounded-lg" />
 			);
 		}
 		return (
