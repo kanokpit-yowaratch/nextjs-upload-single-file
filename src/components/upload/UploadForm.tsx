@@ -12,7 +12,6 @@ import {
 	FileCheck2,
 	FileChartLine,
 } from 'lucide-react';
-import Link from 'next/link';
 import {
 	acceptTypes,
 	allowedTypes,
@@ -215,8 +214,8 @@ const UploadForm = () => {
 
 							<button
 								type="submit"
-								disabled={!file || isLoading}
-								className={`mt-2 py-2 px-4 rounded-lg ${isLoading || !file ? 'bg-muted text-muted-foreground cursor-not-allowed' : 'bg-primary text-white hover:bg-opacity-90'} transition-colors flex items-center justify-center`}>
+								disabled={!file || !!error || isLoading}
+								className={`mt-2 py-2 px-4 rounded-lg bg-primary text-white hover:bg-opacity/90 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}>
 								{isLoading ? <span className="animate-spin mr-2">⌛</span> : <></>}
 								{isLoading ? 'Uploading...' : 'Upload'}
 							</button>
