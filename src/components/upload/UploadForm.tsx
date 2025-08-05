@@ -133,94 +133,92 @@ const UploadForm = () => {
 
 	return (
 		<div className="flex items-center justify-center">
-			<div className="container mx-auto w-full p-4">
-				<div className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 mx-auto flex items-center justify-center">
-					<div className="w-full p-6 rounded-xl shadow-lg">
-						<h2 className="text-xl text-center font-bold text-foreground mb-4">File Upload</h2>
-						<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center w-full">
-							<div
-								{...getRootProps()}
-								className={`w-full relative border-2 border-dashed rounded-lg p-4 cursor-pointer ${isDragActive ? 'border-primary bg-primary/5' : 'border-border'} ${error ? 'border-destructive bg-destructive/5' : ''} transition-all duration-200 ease-in-out`}>
-								<input {...getInputProps()} aria-label="File upload" />
+			<div className="w-150 mx-auto flex items-center justify-center p-4">
+				<div className="w-full p-6 rounded-xl shadow-lg">
+					<h2 className="text-xl text-center font-bold text-foreground mb-4">File Upload</h2>
+					<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center w-full">
+						<div
+							{...getRootProps()}
+							className={`w-full relative border-2 border-dashed rounded-lg p-4 cursor-pointer ${isDragActive ? 'border-primary bg-primary/5' : 'border-border'} ${error ? 'border-destructive bg-destructive/5' : ''} transition-all duration-200 ease-in-out`}>
+							<input {...getInputProps()} aria-label="File upload" />
 
-								{!file && (
-									<div className="flex flex-col justify-center items-center text-sm">
-										<CloudUpload className="w-12 h-12 mx-auto text-primary mb-4" />
-										<p className="text-foreground font-medium text-center mb-2">
-											Drag & drop your file here, or click to select
-										</p>
-										<div className="flex gap-1 text-sm text-center">
-											<span>Supports</span>
-											<span className="text-muted-foreground">
-												JPG, PNG, GIF, WEBP, PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX (max 5MB)
-											</span>
-										</div>
+							{!file && (
+								<div className="flex flex-col justify-center items-center text-sm">
+									<CloudUpload className="w-12 h-12 mx-auto text-primary mb-4" />
+									<p className="text-foreground font-medium text-center mb-2">
+										Drag & drop your file here, or click to select
+									</p>
+									<div className="flex gap-1 text-sm text-center">
+										<span>Supports</span>
+										<span className="text-muted-foreground">
+											JPG, PNG, GIF, WEBP, PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX (max 5MB)
+										</span>
 									</div>
-								)}
+								</div>
+							)}
 
-								{file && (
-									<div className="flex items-start justify-between gap-1">
-										<div className="flex items-center space-x-4">
-											{getFilePreview()}
-											<div className="flex flex-col">
-												<p className="font-medium text-foreground text-sm">{file.name}</p>
-												<p className="text-sm text-muted-foreground">
-													{(file.size / (1024 * 1024)).toFixed(2)} MB
-												</p>
-												<div>
-													{dimensions.width > 0 && (
-														<p className="text-sm mt-2">
-															<span>Dimensions: </span>
-															<span className="text-muted-foreground">{dimensions.width}</span>
-															<span> x </span>
-															<span className="text-muted-foreground"> {dimensions.height}</span>
-															<span> px</span>
-														</p>
-													)}
-												</div>
+							{file && (
+								<div className="flex items-start justify-between gap-1">
+									<div className="flex items-center space-x-4">
+										{getFilePreview()}
+										<div className="flex flex-col">
+											<p className="font-medium text-foreground text-sm">{file.name}</p>
+											<p className="text-sm text-muted-foreground">
+												{(file.size / (1024 * 1024)).toFixed(2)} MB
+											</p>
+											<div>
+												{dimensions.width > 0 && (
+													<p className="text-sm mt-2">
+														<span>Dimensions: </span>
+														<span className="text-muted-foreground">{dimensions.width}</span>
+														<span> x </span>
+														<span className="text-muted-foreground"> {dimensions.height}</span>
+														<span> px</span>
+													</p>
+												)}
 											</div>
 										</div>
-										<button
-											onClick={(e) => {
-												e.stopPropagation();
-												removeFile();
-											}}
-											color="error"
-											className="p-2 hover:bg-secondary rounded-full transition-colors"
-											aria-label="Remove file">
-											<X className="w-5 h-5 text-error" />
-										</button>
 									</div>
-								)}
+									<button
+										onClick={(e) => {
+											e.stopPropagation();
+											removeFile();
+										}}
+										color="error"
+										className="p-2 hover:bg-secondary rounded-full transition-colors"
+										aria-label="Remove file">
+										<X className="w-5 h-5 text-error" />
+									</button>
+								</div>
+							)}
 
-								{error && (
-									<div className="mt-4 text-destructive text-sm flex items-center justify-center text-xs">
-										<TriangleAlert className="w-5 h-5 mr-2" />
-										{error}
-									</div>
-								)}
-							</div>
+							{error && (
+								<div className="mt-4 text-destructive text-sm flex items-center justify-center text-xs">
+									<TriangleAlert className="w-5 h-5 mr-2" />
+									{error}
+								</div>
+							)}
+						</div>
 
-							<div className="relative mb-1 w-full">
-								{uploadStatus ? (
-									<div className="mt-4 flex items-center justify-center">
-										<Check className="w-5 h-5 mr-2 text-success" />
-										<span className="text-xs">File Uploaded Successfully</span>
-									</div>
-								) : (
-									<></>
-								)}
-							</div>
+						<div className="relative mb-1 w-full">
+							{uploadStatus ? (
+								<div className="mt-4 flex items-center justify-center">
+									<Check className="w-5 h-5 mr-2 text-success" />
+									<span className="text-xs">File Uploaded Successfully</span>
+								</div>
+							) : (
+								<></>
+							)}
+						</div>
 
-							<button
-								type="submit"
-								disabled={!file || !!error || isLoading}
-								className={`mt-2 py-2 px-4 rounded-lg bg-primary text-white hover:bg-opacity/90 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}>
-								{isLoading ? <span className="animate-spin mr-2">⌛</span> : <></>}
-								{isLoading ? 'Uploading...' : 'Upload'}
-							</button>
-						</form>
-					</div>
+						<button
+							type="submit"
+							disabled={!file || !!error || isLoading}
+							className={`mt-2 py-2 px-4 rounded-lg bg-primary text-white hover:bg-opacity/90 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}>
+							{isLoading ? <span className="animate-spin mr-2">⌛</span> : <></>}
+							{isLoading ? 'Uploading...' : 'Upload'}
+						</button>
+					</form>
 				</div>
 			</div>
 		</div>
