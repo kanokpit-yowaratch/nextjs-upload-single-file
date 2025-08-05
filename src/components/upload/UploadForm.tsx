@@ -24,8 +24,8 @@ import {
 	wordTypes,
 } from '@/types/constants';
 
-const ImageUploadForm = () => {
-	const [imageFile, setImageFile] = useState<File>();
+const UploadForm = () => {
+	const [file, setFile] = useState<File>();
 	const [error, setError] = useState<string | null>(null);
 	const [uploadStatus, setUploadStatus] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +52,7 @@ const ImageUploadForm = () => {
 			return;
 		}
 
-		setImageFile(selectedFile);
+		setFile(selectedFile);
 
 		if (imageTypes.includes(selectedFile.type)) {
 			const reader: FileReader = new FileReader();
@@ -80,18 +80,18 @@ const ImageUploadForm = () => {
 	});
 
 	const removeFile = () => {
-		setImageFile(undefined);
+		setFile(undefined);
 		setError(null);
 		setUploadStatus(false);
 	};
 
 	const getFilePreview = () => {
-		if (!imageFile) return null;
+		if (!file) return null;
 
-		if (imageFile.type.startsWith('image/')) {
+		if (file.type.startsWith('image/')) {
 			return (
 				<img
-					src={URL.createObjectURL(imageFile)}
+					src={URL.createObjectURL(file)}
 					alt="Preview"
 					className="w-20 h-20 object-cover rounded-lg"
 				/>
@@ -99,10 +99,10 @@ const ImageUploadForm = () => {
 		}
 		return (
 			<div className="w-20 h-20 bg-secondary flex items-center justify-center rounded-lg">
-				{pdfTypes.includes(imageFile.type) && <FileCheck2 className="w-8 h-8 text-primary" />}
-				{wordTypes.includes(imageFile.type) && <FileText className="w-8 h-8 text-primary" />}
-				{excelTypes.includes(imageFile.type) && <Sheet className="w-8 h-8 text-primary" />}
-				{pptTypes.includes(imageFile.type) && <FileChartLine className="w-8 h-8 text-primary" />}
+				{pdfTypes.includes(file.type) && <FileCheck2 className="w-8 h-8 text-primary" />}
+				{wordTypes.includes(file.type) && <FileText className="w-8 h-8 text-primary" />}
+				{excelTypes.includes(file.type) && <Sheet className="w-8 h-8 text-primary" />}
+				{pptTypes.includes(file.type) && <FileChartLine className="w-8 h-8 text-primary" />}
 			</div>
 		);
 	};
@@ -112,7 +112,7 @@ const ImageUploadForm = () => {
 
 		setError(null);
 
-		if (!imageFile) {
+		if (!file) {
 			setError('Please select file.');
 			return;
 		}
@@ -121,7 +121,7 @@ const ImageUploadForm = () => {
 		setUploadStatus(false);
 
 		const formData = new FormData();
-		formData.append('file', imageFile);
+		formData.append('file', file);
 
 		try {
 			// Implement your API here
@@ -148,7 +148,7 @@ const ImageUploadForm = () => {
 								className={`w-full relative border-2 border-dashed rounded-lg p-4 cursor-pointer ${isDragActive ? 'border-primary bg-primary/5' : 'border-border'} ${error ? 'border-destructive bg-destructive/5' : ''} transition-all duration-200 ease-in-out`}>
 								<input {...getInputProps()} aria-label="File upload" />
 
-								{!imageFile && (
+								{!file && (
 									<div className="flex flex-col justify-center items-center text-sm">
 										<CloudUpload className="w-12 h-12 mx-auto text-primary mb-4" />
 										<p className="text-foreground font-medium text-center mb-2">
@@ -163,14 +163,14 @@ const ImageUploadForm = () => {
 									</div>
 								)}
 
-								{imageFile && (
+								{file && (
 									<div className="flex items-start justify-between gap-1">
 										<div className="flex items-center space-x-4">
 											{getFilePreview()}
 											<div className="flex flex-col">
-												<p className="font-medium text-foreground text-sm">{imageFile.name}</p>
+												<p className="font-medium text-foreground text-sm">{file.name}</p>
 												<p className="text-sm text-muted-foreground">
-													{(imageFile.size / (1024 * 1024)).toFixed(2)} MB
+													{(file.size / (1024 * 1024)).toFixed(2)} MB
 												</p>
 												<div>
 													{dimensions.width > 0 && (
@@ -219,8 +219,8 @@ const ImageUploadForm = () => {
 
 							<button
 								type="submit"
-								disabled={!imageFile || isLoading}
-								className={`mt-2 py-2 px-4 rounded-lg ${isLoading || !imageFile ? 'bg-muted text-muted-foreground cursor-not-allowed' : 'bg-primary text-white hover:bg-opacity-90'} transition-colors flex items-center justify-center`}>
+								disabled={!file || isLoading}
+								className={`mt-2 py-2 px-4 rounded-lg ${isLoading || !file ? 'bg-muted text-muted-foreground cursor-not-allowed' : 'bg-primary text-white hover:bg-opacity-90'} transition-colors flex items-center justify-center`}>
 								{isLoading ? <span className="animate-spin mr-2">⌛</span> : <></>}
 								{isLoading ? 'Uploading...' : 'Upload'}
 							</button>
@@ -232,4 +232,4 @@ const ImageUploadForm = () => {
 	);
 };
 
-export default ImageUploadForm;
+export default UploadForm;
